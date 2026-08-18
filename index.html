@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#050505">
+<title>Lost Sound</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- اگر فایل background.mp4 را داخل assets بگذاری، به عنوان بک‌گراند متحرک استفاده می‌شود -->
+<video class="bg-video" autoplay muted loop playsinline preload="auto">
+  <source src="assets/background.mp4" type="video/mp4">
+</video>
+<div class="bg-fallback"></div>
+<div class="bg-noise"></div>
+
+<div class="site">
+
+  <header class="top">
+    <div class="date">
+      <span>MONDAY</span>
+      <b>01</b>
+      <span>MAY</span>
+    </div>
+
+    <div class="hello">
+      <span class="hello-photo" id="helloPhoto"></span>
+      <small>HI, AMIR</small>
+      <button aria-label="notifications">◉</button>
+    </div>
+  </header>
+
+  <main id="scrollArea">
+
+    <section class="discover">
+      <div class="wave-mark">〽</div>
+      <div class="digital-time">9:PM</div>
+      <div class="discover-copy">
+        <span>EXPLORE</span>
+        <span>UPLOAD</span>
+        <span>SHARE</span>
+      </div>
+    </section>
+
+    <section class="artist-stage" id="artistStage">
+      <div class="stage-line"></div>
+      <div class="artist-list" id="artistList"></div>
+    </section>
+
+    <section class="lower-space">
+      <div class="scroll-label">SCROLL <span>↓</span></div>
+      <p>Discover artists.<br>Listen to their sound.</p>
+    </section>
+
+  </main>
+
+  <nav class="bottom-nav">
+    <button class="nav-item active"><span>☰</span><small>EXPLORE</small></button>
+    <button class="nav-item"><span>◯</span><small>ARTISTS</small></button>
+    <button class="nav-item nav-upload" id="uploadNav"><span>+</span><small>UPLOAD</small></button>
+    <button class="nav-item"><span>♫</span><small>MY SOUND</small></button>
+    <button class="nav-item"><span>◉</span><small>PROFILE</small></button>
+  </nav>
+
+</div>
+
+<!-- Artist morph page -->
+<div class="artist-page" id="artistPage">
+  <button class="page-back" id="pageBack">←</button>
+
+  <div class="page-content">
+    <div class="profile-photo-wrap">
+      <div class="profile-photo" id="profilePhoto"></div>
+      <span class="profile-number" id="profileNumber">01</span>
+    </div>
+
+    <div class="profile-kicker">ARTIST</div>
+    <h1 id="profileName">AmirTalles</h1>
+    <p id="profileRole">Music Producer</p>
+
+    <button class="view-profile">VIEW PROFILE</button>
+
+    <div class="tracks">
+      <div class="tracks-title">TOP TRACKS</div>
+      <div class="track"><i>01</i><span>Lost In The Echo</span><b>02:45</b></div>
+      <div class="track"><i>02</i><span>Dark Days</span><b>03:10</b></div>
+      <div class="track"><i>03</i><span>After Midnight</span><b>02:58</b></div>
+    </div>
+  </div>
+</div>
+
+<!-- Upload page -->
+<div class="upload-page" id="uploadPage">
+  <button class="page-back" id="uploadBack">←</button>
+  <div class="upload-inner">
+    <div class="upload-kicker">UPLOAD TRACK</div>
+
+    <label class="cover-picker">
+      <input type="file" id="coverInput" accept="image/*">
+      <span id="coverPreview">+</span>
+      <small>ADD COVER</small>
+    </label>
+
+    <label>TRACK NAME<input id="trackName" placeholder="Enter track name"></label>
+    <label>GENRE<select><option>Select genre</option><option>Hip Hop</option><option>Pop</option><option>Electronic</option><option>Rock</option></select></label>
+    <label>AUDIO FILE<input type="file" id="audioInput" accept="audio/*"></label>
+    <label>DESCRIPTION<textarea placeholder="Write something about your track..."></textarea></label>
+
+    <button class="upload-submit" id="uploadSubmit">UPLOAD TRACK</button>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

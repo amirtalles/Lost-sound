@@ -1,91 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Lost Sound</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <!-- ======= صفحه ۱: خانه / آرتیست‌ها ======= -->
+  <!-- ============================================================ -->
+  <!-- صفحه ۱: HOME / ARTISTS (دقیقاً با ۴ کارت و شماره‌گذاری)        -->
+  <!-- ============================================================ -->
   <div id="page-home" class="page active">
     <div class="container">
-      <!-- ردیف تاریخ‌ها (دقیقاً مثل عکس) -->
+
+      <!-- ردیف روزهای هفته (MONDAY 01 تا THURSDAY 04) -->
       <div class="week-row">
-        <span>MONDAY <br> 01</span>
-        <span>TUESDAY <br> 02</span>
-        <span>WEDNESDAY <br> 03</span>
-        <span>THURSDAY <br> 04</span>
+        <span>MONDAY <br /> 01</span>
+        <span>TUESDAY <br /> 02</span>
+        <span>WEDNESDAY <br /> 03</span>
+        <span>THURSDAY <br /> 04</span>
       </div>
 
-      <!-- هدر اصلی -->
+      <!-- عنوان اصلی -->
       <h1 class="main-title">LOST SOUND</h1>
-      <p class="tagline">UPLOAD. SHARE. BE HEARD.</p>
-      <p class="section-desc">Scroll to discover amazing artists.</p>
+      <p class="sub-line">UPLOAD. SHARE. BE HEARD.</p>
 
-      <!-- لیست آرتیست‌ها -->
-      <div class="artist-list">
-        <div class="artist-card" onclick="showArtist('AmirTalles', 'Music Producer')">
-          <div class="artist-avatar" style="background: #4f46e5;"></div>
-          <div class="artist-info">
-            <h3>AmirTalles</h3>
-            <p>Music Producer</p>
-          </div>
-          <span class="arrow-icon">›</span>
+      <!-- ۴ کارت اصلی -->
+      <div class="feature-grid">
+        <div class="feature-card" onclick="showPage('page-artists')">
+          <h3>ARTISTS</h3>
+          <p>Scroll to discover amazing artists.</p>
         </div>
-        <div class="artist-card" onclick="showArtist('Nina Waves', 'Singer & DJ')">
-          <div class="artist-avatar" style="background: #0891b2;"></div>
-          <div class="artist-info">
-            <h3>Nina Waves</h3>
-            <p>Singer & DJ</p>
-          </div>
-          <span class="arrow-icon">›</span>
+        <div class="feature-card" onclick="showPage('page-upload')">
+          <h3>UPLOAD</h3>
+          <p>Upload your sound in a few steps.</p>
+        </div>
+        <div class="feature-card">
+          <h3>SHARE</h3>
+          <p>Share your music with the world.</p>
+        </div>
+        <div class="feature-card">
+          <h3>LISTEN</h3>
+          <p>Explore and listen to tracks from artists.</p>
         </div>
       </div>
+
+      <!-- شماره‌گذاری 01. HOME / ARTISTS -->
+      <div class="section-badge">01. HOME / ARTISTS</div>
     </div>
   </div>
 
-  <!-- ======= صفحه ۲: پروفایل آرتیست (SELECT ARTIST) ======= -->
-  <div id="page-artist" class="page">
+  <!-- ============================================================ -->
+  <!-- صفحه ۲: SELECT ARTIST (پروفایل + لیست ترک‌ها)                -->
+  <!-- ============================================================ -->
+  <div id="page-artists" class="page">
     <div class="container">
-      <button class="back-btn" onclick="goHome()">‹ BACK</button>
-      
-      <div class="profile-section">
+      <button class="back-btn" onclick="showPage('page-home')">‹ BACK</button>
+
+      <div class="profile-header">
         <div class="profile-avatar" style="background: #4f46e5;"></div>
-        <div class="profile-details">
-          <h2 id="artist-name">AmirTalles</h2>
-          <p id="artist-role">Music Producer</p>
-          <button class="view-profile-btn">VIEW PROFILE</button>
+        <div>
+          <h2>AmirTalles</h2>
+          <p class="role">Music Producer</p>
+          <button class="view-profile">VIEW PROFILE</button>
         </div>
       </div>
 
       <h3 class="section-title">TOP TRACKS</h3>
-      <div class="tracks">
-        <div class="track-row"><span>Lost In The Echo</span> <span>02:45</span></div>
-        <div class="track-row"><span>Dark Days</span> <span>03:10</span></div>
-        <div class="track-row"><span>After Midnight</span> <span>02:58</span></div>
+      <div class="track-list">
+        <div class="track"><span>Lost In The Echo</span> <span>02:45</span></div>
+        <div class="track"><span>Dark Days</span> <span>03:10</span></div>
+        <div class="track"><span>After Midnight</span> <span>02:58</span></div>
       </div>
+
+      <div class="section-badge" style="margin-top:30px;">02. SELECT ARTIST</div>
     </div>
   </div>
 
-  <!-- ======= صفحه ۳: فرم آپلود (UPLOAD TRACK) ======= -->
+  <!-- ============================================================ -->
+  <!-- صفحه ۳: UPLOAD TRACK (فرم آپلود)                             -->
+  <!-- ============================================================ -->
   <div id="page-upload" class="page">
     <div class="container">
-      <h1 class="upload-heading">UPLOAD TRACK</h1>
+      <button class="back-btn" onclick="showPage('page-home')">‹ BACK</button>
+
+      <h1 class="upload-title">UPLOAD TRACK</h1>
       <form id="uploadForm" onsubmit="startUpload(event)">
-        <!-- ADD COVER -->
-        <div class="input-group">
+        <div class="field">
           <label>ADD COVER</label>
-          <input type="file" accept="image/*" class="file-input">
+          <input type="file" accept="image/*" />
         </div>
-        <!-- TRACK NAME -->
-        <div class="input-group">
+        <div class="field">
           <label>TRACK NAME</label>
-          <input type="text" placeholder="Enter track name" required>
+          <input type="text" placeholder="Enter track name" required />
         </div>
-        <!-- GENRE -->
-        <div class="input-group">
+        <div class="field">
           <label>GENRE</label>
           <select>
             <option>Select genre</option>
@@ -94,39 +104,48 @@
             <option>Rock</option>
           </select>
         </div>
-        <!-- AUDIO FILE -->
-        <div class="input-group">
+        <div class="field">
           <label>AUDIO FILE</label>
-          <input type="file" accept="audio/*" class="file-input" required>
+          <input type="file" accept="audio/*" required />
         </div>
-        <!-- DESCRIPTION -->
-        <div class="input-group">
+        <div class="field">
           <label>DESCRIPTION (OPTIONAL)</label>
           <textarea placeholder="Write something about your track..."></textarea>
         </div>
-        
         <button type="submit" class="upload-btn">UPLOAD TRACK</button>
+        <button type="button" class="cancel-btn-form" onclick="showPage('page-home')">CANCELL</button>
       </form>
+
+      <div class="section-badge" style="margin-top:20px;">03. UPLOAD TRACK</div>
     </div>
   </div>
 
-  <!-- ======= صفحه ۴: در حال آپلود (UPLOADING) ======= -->
+  <!-- ============================================================ -->
+  <!-- صفحه ۴: UPLOADING (در حال آپلود با 72%)                      -->
+  <!-- ============================================================ -->
   <div id="page-progress" class="page">
-    <div class="container center-content">
+    <div class="container center">
       <h1 class="progress-title">UPLOADING</h1>
-      <!-- عدد درصد (مثل 72%) -->
-      <div class="progress-percent" id="progressText">72%</div>
-      <!-- نوار پیشرفت -->
-      <div class="progress-track">
-        <div class="progress-fill" id="progressFill" style="width: 72%;"></div>
+      <div class="progress-number" id="progressText">72%</div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill" style="width:72%;"></div>
       </div>
-      <p class="progress-note">
-        Uploading your track... <br>
-        Please don’t close the app.
-      </p>
-      <button class="cancel-btn" onclick="goHome()">CANCEL</button>
+      <p class="progress-note">Uploading your track...<br />Please don't close the app.</p>
+
+      <div class="section-badge" style="margin-top:30px;">04. UPLOADING</div>
     </div>
   </div>
+
+  <!-- ============================================================ -->
+  <!-- نوار نویگیشن پایین (HOME | ARTISTS | UPLOAD | MY SOUND | PROFILE) -->
+  <!-- ============================================================ -->
+  <nav class="bottom-nav">
+    <span class="active">HOME</span>
+    <span onclick="showPage('page-artists')">ARTISTS</span>
+    <span onclick="showPage('page-upload')">UPLOAD</span>
+    <span>MY SOUND</span>
+    <span>PROFILE</span>
+  </nav>
 
   <script src="script.js"></script>
 </body>

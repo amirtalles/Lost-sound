@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#dfded9">
+<title>Lost Sound — Music Streaming</title>
+<style>
+:root{
+  --bg:#dfded9;
+  --paper:#fffefa;
+  --black:#111;
+  --gray:#777;
+  --red:#d94a46;
+  --line:#d8d5cf;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;min-height:100%;background:var(--bg);color:var(--black)}
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  overflow-x:hidden;
+}
+button{font:inherit}
+.app{
+  width:100%;
+  max-width:480px;
+  min-height:100vh;
+  margin:auto;
+  background:var(--bg);
+  padding:16px 14px 112px;
+}
+.top{
+  height:42px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  direction:ltr;
+  padding:0 3px;
+}
+.brand-mini{
+  font-size:15px;
+  font-weight:600;
+  letter-spacing:-.5px;
+}
+.menu{
+  width:25px;
+  height:21px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  border:0;
+  padding:2px 0;
+  background:transparent;
+}
+.menu span{
+  display:block;
+  width:25px;
+  height:2px;
+  background:#111;
+}
+.hero{
+  direction:ltr;
+  margin-top:8px;
+}
+.hero-title{
+  margin:0;
+  font-size:clamp(53px,16.8vw,78px);
+  line-height:.82;
+  font-weight:300;
+  letter-spacing:-5px;
+  white-space:nowrap;
+}
+.meta{
+  display:flex;
+  align-items:end;
+  justify-content:space-between;
+  margin-top:10px;
+  direction:ltr;
+}
+.meta-left{
+  font-size:10px;
+  letter-spacing:1px;
+  font-weight:600;
+}
+.year{
+  font-size:10px;
+  font-weight:600;
+}
+.feature{
+  position:relative;
+  height:355px;
+  margin-top:19px;
+  direction:ltr;
+}
+.index{
+  position:absolute;
+  left:0;
+  top:-2px;
+  font-size:11px;
+  font-weight:600;
+}
+.record{
+  position:absolute;
+  z-index:1;
+  width:230px;
+  height:230px;
+  top:39px;
+  right:2px;
+  border-radius:50%;
+  background:
+    radial-gradient(circle at 50% 50%,#777 0 4px,#161616 5px 11px,#080808 12px 18px,transparent 19px),
+    repeating-radial-gradient(circle,#252525 0 1px,#080808 2px 4px);
+  box-shadow:2px 4px 9px #0005;
+  transition:transform .35s ease;
+}
+.record.playing{animation:spin 2.4s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.record-label{
+  position:absolute;
+  width:35px;height:35px;
+  left:calc(50% - 17.5px);
+  top:calc(50% - 17.5px);
+  border-radius:50%;
+  background:var(--red);
+}
+.cover{
+  position:absolute;
+  z-index:2;
+  left:0;
+  top:24px;
+  width:min(69vw,290px);
+  height:min(69vw,290px);
+  object-fit:cover;
+  border-radius:2px;
+  box-shadow:0 4px 10px #0003;
+  transition:opacity .18s ease,transform .25s ease;
+}
+.cover.switching{opacity:.25;transform:scale(.985)}
+.feature-number{
+  position:absolute;
+  z-index:3;
+  left:14px;
+  top:34px;
+  color:#fff;
+  font-size:9px;
+  font-weight:700;
+  letter-spacing:.3px;
+}
+.cover-title{
+  position:absolute;
+  z-index:3;
+  left:14px;
+  top:34px;
+  color:#fff;
+  font-size:9px;
+  font-weight:700;
+  letter-spacing:.2px;
+}
+.cover-artist{
+  position:absolute;
+  z-index:3;
+  right:14px;
+  top:34px;
+  color:#fff;
+  font-size:9px;
+  font-weight:700;
+}
+.main-info{
+  position:absolute;
+  left:0;
+  top:318px;
+  direction:ltr;
+}
+.main-name{
+  font-size:14px;
+  font-weight:700;
+  letter-spacing:.2px;
+}
+.main-artist{
+  margin-top:3px;
+  color:var(--gray);
+  font-size:10px;
+  letter-spacing:.4px;
+}
+.favorite{
+  position:absolute;
+  right:42px;
+  top:319px;
+  border:0;
+  background:none;
+  padding:0;
+  font-size:26px;
+  line-height:1;
+  cursor:pointer;
+}
+.more{
+  position:absolute;
+  right:3px;
+  top:317px;
+  border:0;
+  background:none;
+  font-size:22px;
+  cursor:pointer;
+}
+.peek{
+  position:absolute;
+  z-index:3;
+  right:-7px;
+  bottom:8px;
+  width:76px;
+  height:76px;
+  object-fit:cover;
+  transform:rotate(-9deg);
+  box-shadow:0 2px 5px #0003;
+}
+.peek-index{
+  position:absolute;
+  z-index:4;
+  right:68px;
+  bottom:77px;
+  font-size:11px;
+  font-weight:600;
+}
+.section-title{
+  direction:ltr;
+  color:var(--red);
+  font-size:15px;
+  margin:7px 0 13px;
+  font-weight:600;
+}
+.tracks{direction:ltr;display:grid;gap:5px}
+.track{
+  min-height:57px;
+  display:grid;
+  grid-template-columns:31px 49px minmax(0,1fr) 38px 18px;
+  align-items:center;
+  gap:8px;
+  border-radius:5px;
+  padding:4px 2px;
+  cursor:pointer;
+  transition:background .15s ease;
+}
+.track:active,.track.active{background:#d4d2cc}
+.track-number{font-size:11px;text-align:center}
+.thumb{
+  width:49px;height:49px;
+  object-fit:cover;
+  border-radius:1px;
+}
+.track-info{min-width:0}
+.track-name{
+  display:block;
+  font-size:10px;
+  font-weight:700;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.track-artist{
+  display:block;
+  margin-top:3px;
+  color:var(--gray);
+  font-size:8.5px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.duration{
+  font-size:9px;
+  text-align:right;
+  color:#333;
+}
+.dots{
+  border:0;
+  background:none;
+  padding:0;
+  font-size:18px;
+  line-height:1;
+}
+.see-more{
+  direction:ltr;
+  text-align:right;
+  margin:15px 4px 0;
+  font-size:10px;
+  font-weight:700;
+}
+.lower-record{
+  position:relative;
+  width:70vw;
+  max-width:340px;
+  height:170px;
+  margin:4px auto -48px;
+  overflow:hidden;
+}
+.lower-record:before{
+  content:"";
+  position:absolute;
+  left:50%;
+  top:12px;
+  transform:translateX(-50%);
+  width:310px;
+  height:310px;
+  border-radius:50%;
+  border:2px solid var(--red);
+  background:repeating-radial-gradient(circle,#202020 0 1px,#080808 2px 4px);
+  box-shadow:inset 0 0 0 5px #111;
+}
+.player{
+  position:fixed;
+  z-index:20;
+  left:50%;
+  bottom:0;
+  transform:translateX(-50%);
+  width:min(100%,480px);
+  height:88px;
+  background:rgba(255,254,250,.97);
+  border-top:1px solid var(--line);
+  box-shadow:0 -4px 15px #00000012;
+  padding:12px 14px 10px;
+  display:grid;
+  grid-template-columns:52px minmax(0,1fr) 122px;
+  gap:10px;
+  align-items:center;
+  direction:ltr;
+  backdrop-filter:blur(8px);
+}
+.progress{
+  position:absolute;
+  top:0;
+  left:0;
+  height:2px;
+  width:0%;
+  background:var(--red);
+}
+.player-cover{
+  width:52px;height:52px;
+  object-fit:cover;
+}
+.now{min-width:0}
+.now-name{
+  font-size:11px;
+  font-weight:700;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.now-artist{
+  margin-top:4px;
+  color:var(--gray);
+  font-size:9px;
+}
+.time{
+  display:flex;
+  justify-content:space-between;
+  color:#555;
+  font-size:7px;
+  margin-top:7px;
+}
+.controls{
+  display:flex;
+  justify-content:flex-end;
+  align-items:center;
+  gap:13px;
+}
+.control{
+  border:0;
+  background:none;
+  padding:0;
+  font-size:17px;
+  cursor:pointer;
+}
+.play{
+  width:42px;height:42px;
+  border:0;
+  border-radius:50%;
+  background:var(--red);
+  color:white;
+  display:grid;
+  place-items:center;
+  font-size:16px;
+  cursor:pointer;
+}
+@media(max-width:380px){
+  .app{padding-left:11px;padding-right:11px}
+  .hero-title{font-size:52px;letter-spacing:-4px}
+  .feature{height:330px}
+  .cover{width:205px;height:205px}
+  .record{width:172px;height:172px;right:3px;top:44px}
+  .main-info{top:270px}
+  .favorite{top:269px}
+  .more{top:267px}
+  .peek{width:63px;height:63px}
+  .peek-index{right:57px;bottom:64px}
+  .track{grid-template-columns:26px 43px minmax(0,1fr) 34px 15px;gap:6px}
+  .thumb{width:43px;height:43px}
+  .player{grid-template-columns:45px minmax(0,1fr) 108px;padding-left:10px;padding-right:10px;gap:7px}
+  .player-cover{width:45px;height:45px}
+  .controls{gap:9px}
+  .play{width:38px;height:38px}
+}
+</style>
+</head>
+<body>
+<main class="app">
+  <header class="top">
+    <div class="brand-mini">L/S</div>
+    <button class="menu" aria-label="Menu"><span></span><span></span><span></span></button>
+  </header>
+
+  <section class="hero">
+    <h1 class="hero-title">LOST SOUND</h1>
+    <div class="meta">
+      <span class="meta-left">MUSIC STREAMING</span>
+      <span class="year">2026</span>
+    </div>
+
+    <div class="feature">
+      <span class="index" id="featureIndex">01</span>
+
+      <div class="record" id="record">
+        <div class="record-label"></div>
+      </div>
+
+      <img id="mainCover" class="cover" alt="Current cover">
+      <span id="coverTitle" class="cover-title"></span>
+      <span id="coverArtist" class="cover-artist"></span>
+
+      <div class="main-info">
+        <div id="mainName" class="main-name"></div>
+        <div id="mainArtist" class="main-artist"></div>
+      </div>
+
+      <button class="favorite" aria-label="Favorite">♡</button>
+      <button class="more" aria-label="More">⋮</button>
+
+      <span class="peek-index">02</span>
+      <img id="peek" class="peek" alt="Next cover">
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">POPULAR</h2>
+    <div id="tracks" class="tracks"></div>
+    <div class="see-more">SEE MORE</div>
+    <div class="lower-record"></div>
+  </section>
+</main>
+
+<footer class="player">
+  <div id="progress" class="progress"></div>
+  <img id="playerCover" class="player-cover" alt="Playing cover">
+  <div class="now">
+    <div id="nowName" class="now-name"></div>
+    <div id="nowArtist" class="now-artist"></div>
+    <div class="time">
+      <span id="currentTime">0:00</span>
+      <span id="totalTime">0:00</span>
+    </div>
+  </div>
+  <div class="controls">
+    <button id="prev" class="control" aria-label="Previous">|◀</button>
+    <button id="play" class="play" aria-label="Play">▶</button>
+    <button id="next" class="control" aria-label="Next">▶|</button>
+  </div>
+</footer>
+
+<script>
+const songs = [
+  {
+    title:"YE KHESHAB",
+    artist:"AMIR TALLES",
+    duration:"3:47",
+    cover:"https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=900&q=90",
+    audio:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+  },
+  {
+    title:"BORDERLINE",
+    artist:"THE LOST RUSH",
+    duration:"4:12",
+    cover:"https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=900&q=90",
+    audio:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"
+  },
+  {
+    title:"ELEPHANT",
+    artist:"LOST SOUND",
+    duration:"3:31",
+    cover:"https://images.unsplash.com/photo-1524368535928-5b5e00ddc76b?auto=format&fit=crop&w=900&q=90",
+    audio:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"
+  },
+  {
+    title:"NO CHOICE",
+    artist:"THE LOST RUSH",
+    duration:"3:41",
+    cover:"https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=900&q=90",
+    audio:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3"
+  }
+];
+
+const audio = new Audio();
+let current = 0;
+
+const $ = id => document.getElementById(id);
+
+function renderList(){
+  $("tracks").innerHTML = songs.map((song,i)=>`
+    <div class="track ${i===current?'active':''}" data-index="${i}">
+      <span class="track-number">0${i+1}</span>
+      <img class="thumb" src="${song.cover}" alt="">
+      <div class="track-info">
+        <span class="track-name">${song.title}</span>
+        <span class="track-artist">${song.artist}</span>
+      </div>
+      <span class="duration">${song.duration}</span>
+      <button class="dots" aria-label="More">⋮</button>
+    </div>
+  `).join("");
+
+  document.querySelectorAll(".track").forEach(row=>{
+    row.addEventListener("click",e=>{
+      if(e.target.classList.contains("dots")) return;
+      selectSong(Number(row.dataset.index),true);
+    });
+  });
+}
+
+function selectSong(index,autoPlay=false){
+  current = (index + songs.length) % songs.length;
+  const song = songs[current];
+
+  $("mainCover").classList.add("switching");
+  setTimeout(()=>$("mainCover").classList.remove("switching"),180);
+
+  $("mainCover").src = song.cover;
+  $("peek").src = songs[(current+1)%songs.length].cover;
+  $("playerCover").src = song.cover;
+
+  $("featureIndex").textContent = String(current+1).padStart(2,"0");
+  $("coverTitle").textContent = song.title;
+  $("coverArtist").textContent = song.artist;
+  $("mainName").textContent = song.title;
+  $("mainArtist").textContent = song.artist;
+  $("nowName").textContent = song.title;
+  $("nowArtist").textContent = song.artist;
+  $("totalTime").textContent = song.duration;
+  $("currentTime").textContent = "0:00";
+  $("progress").style.width = "0%";
+
+  audio.src = song.audio;
+  renderList();
+
+  if(autoPlay){
+    audio.play().then(()=>{
+      $("play").textContent="Ⅱ";
+      $("record").classList.add("playing");
+    }).catch(()=>{
+      $("play").textContent="▶";
+      $("record").classList.remove("playing");
+    });
+  }else{
+    $("play").textContent="▶";
+    $("record").classList.remove("playing");
+  }
+}
+
+$("play").addEventListener("click",()=>{
+  if(audio.paused){
+    audio.play().then(()=>{
+      $("play").textContent="Ⅱ";
+      $("record").classList.add("playing");
+    }).catch(()=>{});
+  }else{
+    audio.pause();
+    $("play").textContent="▶";
+    $("record").classList.remove("playing");
+  }
+});
+
+$("prev").addEventListener("click",()=>selectSong(current-1,true));
+$("next").addEventListener("click",()=>selectSong(current+1,true));
+
+audio.addEventListener("timeupdate",()=>{
+  if(!audio.duration) return;
+  $("progress").style.width = (audio.currentTime/audio.duration*100)+"%";
+  $("currentTime").textContent = formatTime(audio.currentTime);
+});
+audio.addEventListener("ended",()=>selectSong(current+1,true));
+
+function formatTime(seconds){
+  const m=Math.floor(seconds/60);
+  const s=Math.floor(seconds%60).toString().padStart(2,"0");
+  return `${m}:${s}`;
+}
+
+selectSong(0,false);
+</script>
+</body>
+</html>

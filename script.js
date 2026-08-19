@@ -1,65 +1,156 @@
-const artists=[
- {name:"AmirTalles",role:"Music Producer",number:"01",image:"https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=700&q=85"},
- {name:"Ravan",role:"Artist",number:"02",image:"https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=700&q=85"},
- {name:"Nova",role:"Producer",number:"03",image:"https://images.unsplash.com/photo-1524368535928-5b5e00ddc76b?auto=format&fit=crop&w=700&q=85"},
- {name:"Niloo",role:"Vocalist",number:"04",image:"https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=700&q=85"},
- {name:"Noir",role:"Composer",number:"05",image:"https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=700&q=85"}
+const artists = [
+
+
+{
+name:"The Weeknd",
+bio:"Singer / Artist",
+
+image:
+"https://images.unsplash.com/photo-1524368535928-5b5e00ddc76b"
+
+},
+
+
+{
+name:"Travis Scott",
+bio:"Hip Hop Artist",
+
+image:
+"https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f"
+
+},
+
+
+{
+name:"Billie Eilish",
+bio:"Alternative Artist",
+
+image:
+"https://images.unsplash.com/photo-1516280440614-37939bbacd81"
+
+},
+
+
+{
+name:"Drake",
+bio:"Rapper",
+
+image:
+"https://images.unsplash.com/photo-1524368535928-5b5e00ddc76b"
+
+},
+
+
+{
+name:"Lost Artist",
+bio:"New Creator",
+
+image:
+"https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f"
+
+}
+
+
 ];
 
-const list=document.getElementById("artistList");
-const artistPage=document.getElementById("artistPage");
-const profilePhoto=document.getElementById("profilePhoto");
-const profileName=document.getElementById("profileName");
-const profileRole=document.getElementById("profileRole");
-const profileNumber=document.getElementById("profileNumber");
 
-artists.forEach((a,i)=>{
- const card=document.createElement("article");
- card.className="artist-card";
- card.innerHTML=`<div class="portrait" style="background-image:url('${a.image}')"></div><span class="num">${a.number}</span><div class="name">${a.name}</div>`;
- list.appendChild(card);
 
- card.addEventListener("click",()=>{
-   document.querySelectorAll(".artist-card").forEach(x=>x.classList.remove("selected"));
-   card.classList.add("selected");
 
-   /* selected artist grows first */
-   setTimeout(()=>{
-     profilePhoto.style.backgroundImage=`url('${a.image}')`;
-     profileName.textContent=a.name;
-     profileRole.textContent=a.role;
-     profileNumber.textContent=a.number;
-     artistPage.classList.add("open");
-   },220);
- });
-});
 
-document.getElementById("pageBack").onclick=()=>{
- artistPage.classList.remove("open");
- setTimeout(()=>document.querySelectorAll(".artist-card").forEach(x=>x.classList.remove("selected")),500);
+const list =
+document.getElementById("artistList");
+
+
+
+artists.forEach((artist,index)=>{
+
+
+let card =
+document.createElement("div");
+
+
+card.className="artist";
+
+
+
+card.innerHTML=`
+
+<div class="photo"
+
+style="background-image:url(${artist.image})">
+
+</div>
+
+
+<div class="number">
+
+0${index+1}
+
+</div>
+
+
+<div class="name">
+
+${artist.name}
+
+</div>
+
+
+`;
+
+
+
+card.onclick=()=>{
+
+
+document
+.getElementById("profileImage")
+.src=
+artist.image;
+
+
+
+document
+.getElementById("profileName")
+.innerHTML=
+artist.name;
+
+
+
+document
+.getElementById("profileBio")
+.innerHTML=
+artist.bio;
+
+
+
+document
+.getElementById("profilePage")
+.classList.add("active");
+
+
+
 };
 
-/* Upload page */
-const uploadPage=document.getElementById("uploadPage");
-document.getElementById("uploadNav").onclick=()=>uploadPage.classList.add("open");
-document.getElementById("uploadBack").onclick=()=>uploadPage.classList.remove("open");
 
-/* Cover preview */
-document.getElementById("coverInput").addEventListener("change",e=>{
- const file=e.target.files[0];
- if(!file)return;
- const url=URL.createObjectURL(file);
- const preview=document.getElementById("coverPreview");
- preview.parentElement.classList.add("has-image");
- preview.style.backgroundImage=`url('${url}')`;
+
+list.appendChild(card);
+
+
 });
 
-/* Fake upload transition */
-document.getElementById("uploadSubmit").onclick=()=>{
- const btn=document.getElementById("uploadSubmit");
- btn.textContent="UPLOADING...";
- btn.disabled=true;
- setTimeout(()=>{
-   btn.textContent="UPLOAD COMPLETE ✓";
- },1200);
+
+
+
+
+document
+.getElementById("close")
+.onclick=()=>{
+
+
+document
+.getElementById("profilePage")
+.classList.remove("active");
+
+
 };

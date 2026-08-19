@@ -2,398 +2,461 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Lost Sound</title>
 
 <style>
-:root{
-  --bg:#dfded9;
-  --paper:#fffefa;
-  --black:#111;
-  --gray:#777;
-  --red:#d94a46;
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
 }
 
-*{box-sizing:border-box}
-
 body{
-  margin:0;
-  background:var(--bg);
-  font-family:Arial,Helvetica,sans-serif;
-  color:var(--black);
+    background:#deddd8;
+    color:#111;
+    font-family:Arial,Helvetica,sans-serif;
 }
 
 .page{
-  max-width:1180px;
-  margin:auto;
-  padding:35px 25px 80px;
+    width:100%;
+    max-width:1100px;
+    margin:auto;
+    padding:35px 20px 80px;
 }
 
+/* BRAND */
+
 .brand{
-  text-align:center;
-  margin-bottom:40px;
+    text-align:center;
+    margin-bottom:40px;
 }
 
 .brand h1{
-  margin:0;
-  font-size:27px;
-  font-weight:500;
-  letter-spacing:-1.5px;
+    font-size:28px;
+    font-weight:500;
+    letter-spacing:-1px;
 }
 
 .brand p{
-  margin:3px 0;
-  font-size:12px;
-  letter-spacing:1.5px;
-  color:var(--gray);
-  font-weight:bold;
+    margin-top:4px;
+    font-size:11px;
+    letter-spacing:2px;
+    color:#777;
 }
+
+/* LAYOUT */
 
 .showcase{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:75px;
-  align-items:start;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:70px;
+    align-items:start;
 }
 
+/* PHONE */
+
 .phone{
-  width:350px;
-  max-width:100%;
-  margin:auto;
-  background:#191919;
-  border-radius:48px;
-  padding:12px;
+    width:350px;
+    max-width:100%;
+    margin:auto;
+    padding:11px;
+    background:#171717;
+    border-radius:48px;
 }
 
 .screen{
-  height:690px;
-  position:relative;
-  overflow:hidden;
-  border-radius:37px;
-  background:var(--paper);
+    position:relative;
+    height:690px;
+    overflow:hidden;
+    border-radius:37px;
+    background:#fffefa;
 }
+
+/* NOTCH */
 
 .notch{
-  position:absolute;
-  z-index:5;
-  top:0;
-  left:50%;
-  transform:translateX(-50%);
-  width:178px;
-  height:38px;
-  background:#191919;
-  border-radius:0 0 20px 20px;
+    position:absolute;
+    top:0;
+    left:50%;
+    transform:translateX(-50%);
+    width:175px;
+    height:37px;
+    background:#171717;
+    border-radius:0 0 20px 20px;
+    z-index:10;
 }
 
+/* TOP */
+
 .top{
-  height:70px;
-  padding:43px 18px 0;
-  display:flex;
-  justify-content:space-between;
-  direction:ltr;
-  font-size:14px;
+    height:70px;
+    padding:43px 18px 0;
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+}
+
+.logo{
+    font-size:13px;
+    font-weight:bold;
 }
 
 .menu{
-  width:22px;
-  display:grid;
-  gap:3px;
+    width:22px;
+    display:flex;
+    flex-direction:column;
+    gap:4px;
 }
 
-.menu i{
-  height:2px;
-  background:#222;
-  width:22px;
+.menu span{
+    width:22px;
+    height:2px;
+    background:#111;
 }
+
+/* CONTENT */
 
 .content{
-  padding:18px 19px;
-  direction:ltr;
+    padding:15px 19px;
 }
 
-.title{
-  font-size:56px;
-  line-height:.88;
-  font-weight:300;
-  letter-spacing:-4px;
-  margin:10px 0 3px;
+.main-title{
+    font-size:57px;
+    line-height:.86;
+    font-weight:300;
+    letter-spacing:-4px;
+    margin-top:10px;
 }
 
 .subtitle{
-  font-size:8px;
-  font-weight:bold;
-  letter-spacing:.7px;
-  margin-bottom:25px;
+    font-size:8px;
+    font-weight:bold;
+    letter-spacing:1px;
+    margin-top:5px;
+    margin-bottom:25px;
 }
+
+/* FEATURE */
 
 .feature{
-  position:relative;
-  height:285px;
+    height:285px;
+    position:relative;
 }
 
-.cover{
-  position:absolute;
-  left:0;
-  top:0;
-  width:238px;
-  height:238px;
-  object-fit:cover;
-  z-index:2;
-  box-shadow:0 2px 5px #0002;
-  transition:.35s;
+.main-cover{
+    position:absolute;
+    left:0;
+    top:0;
+    width:238px;
+    height:238px;
+    object-fit:cover;
+    z-index:2;
+    box-shadow:0 3px 8px rgba(0,0,0,.15);
+    transition:.4s ease;
 }
+
+/* VINYL */
 
 .vinyl{
-  position:absolute;
-  z-index:1;
-  left:174px;
-  top:22px;
-  width:198px;
-  height:198px;
-  border-radius:50%;
-  background:
+    position:absolute;
+    left:173px;
+    top:21px;
+    width:199px;
+    height:199px;
+    border-radius:50%;
+
+    background:
     repeating-radial-gradient(
-      circle,
-      #242424 0 1px,
-      #090909 2px 4px
+        circle,
+        #292929 0px,
+        #292929 1px,
+        #080808 2px,
+        #111 4px
     );
-  transition:.35s;
+
+    box-shadow:
+    0 4px 10px rgba(0,0,0,.3);
+
+    z-index:1;
 }
 
-.vinyl:after{
-  content:"";
-  position:absolute;
-  left:82px;
-  top:82px;
-  width:34px;
-  height:34px;
-  border-radius:50%;
-  background:var(--red);
+.vinyl::before{
+    content:"";
+    position:absolute;
+    width:42px;
+    height:42px;
+    left:78px;
+    top:78px;
+    border-radius:50%;
+    background:#d84a43;
+}
+
+.vinyl::after{
+    content:"";
+    position:absolute;
+    width:8px;
+    height:8px;
+    left:95px;
+    top:95px;
+    border-radius:50%;
+    background:#111;
 }
 
 .vinyl.playing{
-  animation:spin 2s linear infinite;
+    animation:rotateDisc 2s linear infinite;
 }
 
-@keyframes spin{
-  to{
-    transform:rotate(360deg);
-  }
+@keyframes rotateDisc{
+    from{
+        transform:rotate(0deg);
+    }
+
+    to{
+        transform:rotate(360deg);
+    }
 }
 
-.name{
-  position:absolute;
-  top:245px;
-  left:0;
-  font-size:13px;
-  font-weight:bold;
+/* TRACK INFO */
+
+.track-name{
+    position:absolute;
+    left:0;
+    top:246px;
+    font-size:13px;
+    font-weight:bold;
 }
 
-.artist{
-  position:absolute;
-  top:263px;
-  left:0;
-  font-size:9px;
-  color:var(--gray);
+.track-artist{
+    position:absolute;
+    left:0;
+    top:264px;
+    font-size:9px;
+    color:#777;
 }
 
-.small{
-  position:absolute;
-  right:-3px;
-  top:265px;
-  width:61px;
-  height:61px;
-  object-fit:cover;
-  transform:rotate(-8deg);
+.next-cover{
+    position:absolute;
+    right:-2px;
+    top:265px;
+    width:60px;
+    height:60px;
+    object-fit:cover;
+    transform:rotate(-8deg);
 }
 
-.section{
-  color:var(--red);
-  font-size:12px;
-  font-weight:bold;
-  margin:0 0 13px;
+/* POPULAR */
+
+.popular{
+    color:#d94a46;
+    font-size:12px;
+    font-weight:bold;
+    margin-bottom:13px;
 }
 
-.tracks{
-  display:grid;
-  gap:9px;
+.track-list{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
 }
 
 .track{
-  display:grid;
-  grid-template-columns:28px 43px 1fr auto;
-  gap:8px;
-  align-items:center;
-  cursor:pointer;
-  padding:3px 0;
-  border-radius:5px;
-  transition:.15s;
+    display:grid;
+    grid-template-columns:28px 43px 1fr auto;
+    align-items:center;
+    gap:8px;
+    padding:3px;
+    border-radius:5px;
+    cursor:pointer;
+    transition:.2s;
 }
 
-.track:hover,
+.track:hover{
+    background:#efeee9;
+}
+
 .track.active{
-  background:#f0efea;
+    background:#eeece7;
 }
 
-.num{
-  text-align:center;
-  font-size:9px;
+.number{
+    text-align:center;
+    font-size:9px;
+    color:#555;
 }
 
-.thumb{
-  width:43px;
-  height:43px;
-  object-fit:cover;
+.track-cover{
+    width:43px;
+    height:43px;
+    object-fit:cover;
 }
 
-.info b{
-  display:block;
-  font-size:9px;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
+.track-info{
+    overflow:hidden;
 }
 
-.info span{
-  font-size:7px;
-  color:var(--gray);
+.track-info strong{
+    display:block;
+    font-size:9px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.track-info small{
+    font-size:7px;
+    color:#777;
 }
 
 .duration{
-  font-size:8px;
-  color:#555;
+    font-size:8px;
+    color:#555;
 }
 
-.next{
-  position:absolute;
-  right:18px;
-  bottom:16px;
-  font-size:8px;
-  font-weight:bold;
-}
+/* BIG DISC AT BOTTOM */
 
-.big-disc{
-  position:absolute;
-  right:-66px;
-  bottom:-145px;
-  width:255px;
-  height:255px;
-  border-radius:50%;
-  background:
+.bottom-disc{
+    position:absolute;
+    right:-70px;
+    bottom:-150px;
+    width:260px;
+    height:260px;
+    border-radius:50%;
+
+    background:
     repeating-radial-gradient(
-      circle,
-      #202020 0 1px,
-      #080808 2px 4px
+        circle,
+        #292929 0px,
+        #292929 1px,
+        #080808 2px,
+        #111 4px
     );
 }
 
+/* PLAYER */
+
 .player{
-  position:absolute;
-  bottom:0;
-  left:0;
-  right:0;
-  height:76px;
-  background:#fff;
-  border-top:1px solid #e5e2dc;
-  display:flex;
-  align-items:center;
-  padding:10px 14px;
-  gap:10px;
-  direction:ltr;
+    position:absolute;
+    bottom:0;
+    left:0;
+    right:0;
+    height:76px;
+    background:white;
+    border-top:1px solid #e5e2dc;
+
+    display:flex;
+    align-items:center;
+
+    padding:10px 14px;
+    gap:10px;
 }
 
-.pcover{
-  width:48px;
-  height:48px;
-  object-fit:cover;
+.player-cover{
+    width:48px;
+    height:48px;
+    object-fit:cover;
 }
 
-.now{
-  flex:1;
-  min-width:0;
+.player-info{
+    flex:1;
+    min-width:0;
 }
 
-.now b{
-  display:block;
-  font-size:10px;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
+.player-info strong{
+    display:block;
+    font-size:10px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
 }
 
-.now span{
-  display:block;
-  font-size:8px;
-  color:#777;
-  margin-top:3px;
+.player-info span{
+    display:block;
+    margin-top:3px;
+    font-size:8px;
+    color:#777;
 }
 
 .controls{
-  display:flex;
-  align-items:center;
-  gap:11px;
+    display:flex;
+    align-items:center;
+    gap:11px;
 }
 
-.ctrl{
-  font-size:15px;
-  font-weight:bold;
-  cursor:pointer;
+.control{
+    border:none;
+    background:none;
+    font-size:15px;
+    cursor:pointer;
 }
 
 .play{
-  width:39px;
-  height:39px;
-  border-radius:50%;
-  border:0;
-  background:var(--red);
-  color:#fff;
-  cursor:pointer;
-  font-size:16px;
+    width:39px;
+    height:39px;
+    border:none;
+    border-radius:50%;
+    background:#d94a46;
+    color:white;
+    cursor:pointer;
+    font-size:15px;
 }
+
+/* PROGRESS */
 
 .progress{
-  position:absolute;
-  left:0;
-  top:-2px;
-  width:0;
-  height:2px;
-  background:var(--red);
+    position:absolute;
+    top:-2px;
+    left:0;
+    width:0%;
+    height:2px;
+    background:#d94a46;
 }
 
-@media(max-width:820px){
+/* MOBILE */
 
-  .showcase{
-    grid-template-columns:1fr;
-    gap:55px;
-  }
+@media(max-width:800px){
+
+    .showcase{
+        grid-template-columns:1fr;
+        gap:50px;
+    }
+
+    .phone{
+        width:350px;
+    }
 
 }
 
-@media(max-width:380px){
+@media(max-width:370px){
 
-  .phone{
-    padding:9px;
-    border-radius:40px;
-  }
+    .page{
+        padding-left:10px;
+        padding-right:10px;
+    }
 
-  .screen{
-    border-radius:31px;
-  }
+    .phone{
+        width:100%;
+    }
 
-  .title{
-    font-size:51px;
-  }
+    .screen{
+        height:650px;
+    }
 
-  .cover{
-    width:210px;
-    height:210px;
-  }
+    .main-title{
+        font-size:51px;
+    }
 
-  .vinyl{
-    width:175px;
-    height:175px;
-    left:153px;
-  }
+    .main-cover{
+        width:210px;
+        height:210px;
+    }
+
+    .vinyl{
+        width:175px;
+        height:175px;
+        left:153px;
+    }
 
 }
 </style>
@@ -401,35 +464,51 @@ body{
 
 <body>
 
-<main class="page">
+<div class="page">
 
 <header class="brand">
-  <h1>LOST SOUND</h1>
-  <p>MUSIC STREAMING</p>
+
+<h1>LOST SOUND</h1>
+
+<p>MUSIC STREAMING</p>
+
 </header>
 
-<section class="showcase">
 
-<!-- PHONE -->
+<div class="showcase">
+
+
+<!-- ========================= -->
+<!-- MAIN PLAYER -->
+<!-- ========================= -->
+
 <div class="phone">
 
 <div class="screen">
 
 <div class="notch"></div>
 
-<div class="top">
-  <b>S/M</b>
 
-  <span class="menu">
-    <i></i>
-    <i></i>
-    <i></i>
-  </span>
+<div class="top">
+
+<div class="logo">
+L/S
 </div>
+
+<div class="menu">
+
+<span></span>
+<span></span>
+<span></span>
+
+</div>
+
+</div>
+
 
 <div class="content">
 
-<h2 class="title">
+<h2 class="main-title">
 LOST<br>
 SOUND
 </h2>
@@ -438,67 +517,105 @@ SOUND
 MUSIC STREAMING
 </div>
 
+
 <div class="feature">
 
-<div id="vinyl" class="vinyl"></div>
+<div
+id="vinyl"
+class="vinyl">
+</div>
 
-<img id="mainCover"
-class="cover"
-alt="Album Cover">
 
-<div id="mainName" class="name"></div>
+<img
+id="mainCover"
+class="main-cover"
+src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=800&q=85"
+>
 
-<div id="mainArtist" class="artist"></div>
 
-<img id="smallCover"
-class="small"
-alt="">
+<div
+id="trackName"
+class="track-name">
+YE KHESHAB
+</div>
+
+
+<div
+id="trackArtist"
+class="track-artist">
+AMIR TALLES
+</div>
+
+
+<img
+id="nextCover"
+class="next-cover"
+src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=300&q=85"
+>
 
 </div>
 
-<h3 class="section">
+
+<div class="popular">
 POPULAR
-</h3>
+</div>
 
-<div id="tracks" class="tracks"></div>
+
+<div id="trackList" class="track-list"></div>
 
 </div>
 
-<div class="big-disc"></div>
 
-<div class="next">
-NEXT
-</div>
+<div class="bottom-disc"></div>
+
 
 <div class="player">
 
-<div id="progress" class="progress"></div>
+<div
+id="progress"
+class="progress">
+</div>
 
-<img id="playerCover"
-class="pcover"
-alt="">
 
-<div class="now">
+<img
+id="playerCover"
+class="player-cover"
+src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=200&q=85"
+>
 
-<b id="playerName"></b>
 
-<span id="playerArtist"></span>
+<div class="player-info">
+
+<strong id="playerName">
+YE KHESHAB
+</strong>
+
+<span id="playerArtist">
+AMIR TALLES
+</span>
 
 </div>
+
 
 <div class="controls">
 
-<span id="prev" class="ctrl">
+<button
+id="previous"
+class="control">
 ◀
-</span>
+</button>
 
-<button id="play" class="play">
+<button
+id="playButton"
+class="play">
 ▶
 </button>
 
-<span id="next" class="ctrl">
+<button
+id="next"
+class="control">
 ▶
-</span>
+</button>
 
 </div>
 
@@ -509,7 +626,10 @@ alt="">
 </div>
 
 
+
+<!-- ========================= -->
 <!-- SECOND PHONE -->
+<!-- ========================= -->
 
 <div class="phone">
 
@@ -517,158 +637,137 @@ alt="">
 
 <div class="notch"></div>
 
+
 <div class="top">
 
-<b>S/M</b>
+<div class="logo">
+L/S
+</div>
 
-<span class="menu">
-<i></i>
-<i></i>
-<i></i>
-</span>
+<div class="menu">
+
+<span></span>
+<span></span>
+<span></span>
 
 </div>
 
+</div>
+
+
 <div class="content">
 
-<h2 class="title" style="font-size:51px">
+<h2
+class="main-title"
+style="font-size:51px">
+
 AMIR<br>
 TALLES
+
 </h2>
+
 
 <div class="subtitle">
 PRODUCER · COMPOSER · ARTIST
 </div>
 
-<h3 class="section">
-POPULAR
-</h3>
 
-<p style="
-font-size:9px;
-line-height:1.8;
+<div class="popular">
+POPULAR
+</div>
+
+
+<p
+style="
+font-size:10px;
+line-height:2;
 color:#777;
 ">
-
-برای تست:
-
-<br>
 
 روی هر موزیک بزن.
 
 <br>
 
-کاور اصلی عوض می‌شود.
-
-<br>
-
-موزیک نیز پخش می‌شود.
+کاور بزرگ تغییر می‌کند،
+دیسک می‌چرخد
+و موزیک انتخاب‌شده پخش می‌شود.
 
 </p>
 
 </div>
 
-<div class="big-disc"></div>
 
-<div class="next">
-NEXT
-</div>
+<div class="bottom-disc"></div>
 
 </div>
 
 </div>
 
-</section>
 
-</main>
+</div>
+
+</div>
+
 
 
 <script>
-
-/* =========================
-   MUSIC LIST
-========================= */
 
 const tracks = [
 
 {
 name:"YE KHESHAB",
 artist:"AMIR TALLES",
-time:"3:36",
-
-cover:
-"https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=700&q=85",
-
-audio:
-"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+duration:"3:36",
+cover:"https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=800&q=85",
+audio:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
 },
 
 {
 name:"BORDERLINE",
 artist:"THE LOST RUSH",
-time:"4:12",
-
-cover:
-"https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=700&q=85",
-
-audio:
-"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"
+duration:"4:12",
+cover:"https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=800&q=85",
+audio:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"
 },
 
 {
 name:"ELEPHANT",
 artist:"LOST SOUND",
-time:"3:31",
-
-cover:
-"https://images.unsplash.com/photo-1524368535928-5b5e00ddc76b?auto=format&fit=crop&w=700&q=85",
-
-audio:
-"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"
+duration:"3:31",
+cover:"https://images.unsplash.com/photo-1524368535928-5b5e00ddc76b?auto=format&fit=crop&w=800&q=85",
+audio:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"
 },
 
 {
 name:"NO CHOICE",
 artist:"THE LOST RUSH",
-time:"3:41",
-
-cover:
-"https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=700&q=85",
-
-audio:
-"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3"
+duration:"3:41",
+cover:"https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=800&q=85",
+audio:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3"
 }
 
 ];
 
 
-/* =========================
-   AUDIO
-========================= */
+let currentTrack = 0;
 
 const audio = new Audio();
 
-let current = 0;
-
-
-/* =========================
-   ELEMENTS
-========================= */
 
 const mainCover =
 document.getElementById("mainCover");
 
-const smallCover =
-document.getElementById("smallCover");
+const nextCover =
+document.getElementById("nextCover");
+
+const trackName =
+document.getElementById("trackName");
+
+const trackArtist =
+document.getElementById("trackArtist");
 
 const playerCover =
 document.getElementById("playerCover");
-
-const mainName =
-document.getElementById("mainName");
-
-const mainArtist =
-document.getElementById("mainArtist");
 
 const playerName =
 document.getElementById("playerName");
@@ -676,26 +775,22 @@ document.getElementById("playerName");
 const playerArtist =
 document.getElementById("playerArtist");
 
-const tracksContainer =
-document.getElementById("tracks");
+const playButton =
+document.getElementById("playButton");
 
 const vinyl =
 document.getElementById("vinyl");
 
-const playButton =
-document.getElementById("play");
-
 const progress =
 document.getElementById("progress");
 
+const trackList =
+document.getElementById("trackList");
 
-/* =========================
-   CREATE TRACKS
-========================= */
 
-function renderTracks(){
+function createTrackList(){
 
-tracksContainer.innerHTML = "";
+trackList.innerHTML = "";
 
 tracks.forEach((track,index)=>{
 
@@ -703,35 +798,38 @@ const item =
 document.createElement("div");
 
 item.className =
-"track " +
-(index === current ? "active" : "");
+"track";
+
+if(index === currentTrack){
+item.classList.add("active");
+}
 
 item.innerHTML = `
 
-<span class="num">
+<div class="number">
 0${index+1}
-</span>
+</div>
 
 <img
-class="thumb"
+class="track-cover"
 src="${track.cover}"
 >
 
-<div class="info">
+<div class="track-info">
 
-<b>
+<strong>
 ${track.name}
-</b>
+</strong>
 
-<span>
+<small>
 ${track.artist}
-</span>
+</small>
 
 </div>
 
-<span class="duration">
-${track.time}
-</span>
+<div class="duration">
+${track.duration}
+</div>
 
 `;
 
@@ -741,52 +839,35 @@ selectTrack(index,true);
 
 };
 
-tracksContainer.appendChild(item);
+trackList.appendChild(item);
 
 });
 
 }
 
 
-/* =========================
-   SELECT MUSIC
-========================= */
+function selectTrack(index,playNow=false){
 
-function selectTrack(index,autoPlay){
-
-current = index;
+currentTrack = index;
 
 const track =
 tracks[index];
 
 
-/* CHANGE MAIN COVER */
-
 mainCover.src =
 track.cover;
-
-
-/* CHANGE SMALL COVER */
-
-smallCover.src =
-tracks[
-(index + 1) %
-tracks.length
-].cover;
-
-
-/* CHANGE PLAYER COVER */
 
 playerCover.src =
 track.cover;
 
+nextCover.src =
+tracks[(index+1)%tracks.length].cover;
 
-/* CHANGE TEXT */
 
-mainName.textContent =
+trackName.textContent =
 track.name;
 
-mainArtist.textContent =
+trackArtist.textContent =
 track.artist;
 
 playerName.textContent =
@@ -796,34 +877,27 @@ playerArtist.textContent =
 track.artist;
 
 
-/* CHANGE AUDIO */
-
 audio.src =
 track.audio;
 
-
-/* REFRESH LIST */
-
-renderTracks();
+audio.load();
 
 
-/* PLAY */
+createTrackList();
 
-if(autoPlay){
+
+if(playNow){
 
 audio.play()
 .then(()=>{
 
-playButton.textContent = "Ⅱ";
+playButton.textContent =
+"Ⅱ";
 
 vinyl.classList.add("playing");
 
 })
 .catch(()=>{
-
-console.log(
-"برای پخش صدا روی صفحه یک بار لمس کنید."
-);
 
 });
 
@@ -832,20 +906,15 @@ console.log(
 playButton.textContent =
 "▶";
 
-vinyl.classList.remove(
-"playing"
-);
+vinyl.classList.remove("playing");
 
 }
 
 }
 
 
-/* =========================
-   PLAY BUTTON
-========================= */
-
-playButton.onclick = function(){
+playButton.onclick =
+function(){
 
 if(audio.paused){
 
@@ -855,9 +924,7 @@ audio.play()
 playButton.textContent =
 "Ⅱ";
 
-vinyl.classList.add(
-"playing"
-);
+vinyl.classList.add("playing");
 
 });
 
@@ -868,50 +935,42 @@ audio.pause();
 playButton.textContent =
 "▶";
 
-vinyl.classList.remove(
-"playing"
-);
+vinyl.classList.remove("playing");
 
 }
 
 };
 
 
-/* =========================
-   PREVIOUS
-========================= */
-
-document.getElementById("prev")
-.onclick = function(){
+document.getElementById("previous").onclick =
+function(){
 
 let index =
-(current - 1 + tracks.length)
-% tracks.length;
+currentTrack - 1;
+
+if(index < 0){
+index = tracks.length - 1;
+}
 
 selectTrack(index,true);
 
 };
 
 
-/* =========================
-   NEXT
-========================= */
-
-document.getElementById("next")
-.onclick = function(){
+document.getElementById("next").onclick =
+function(){
 
 let index =
-(current + 1)
-% tracks.length;
+currentTrack + 1;
+
+if(index >= tracks.length){
+index = 0;
+}
 
 selectTrack(index,true);
 
 };
 
-
-/* =========================
-   PROGRESS
-========================= */
 
 audio.addEventListener(
 "timeupdate",
@@ -919,7 +978,7 @@ function(){
 
 if(audio.duration){
 
-const percent =
+let percent =
 (audio.currentTime /
 audio.duration) * 100;
 
@@ -931,26 +990,21 @@ percent + "%";
 });
 
 
-/* =========================
-   AUTO NEXT
-========================= */
-
 audio.addEventListener(
 "ended",
 function(){
 
 let index =
-(current + 1)
-% tracks.length;
+currentTrack + 1;
+
+if(index >= tracks.length){
+index = 0;
+}
 
 selectTrack(index,true);
 
 });
 
-
-/* =========================
-   START
-========================= */
 
 selectTrack(0,false);
 

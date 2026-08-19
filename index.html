@@ -1,78 +1,86 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="fa">
 <head>
-
-<meta charset="UTF-8">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Lost Sound</title>
-
-<link rel="stylesheet" href="style.css">
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lost Sound</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-
-
 <body>
 
+  <!-- صفحه ۱: خانه / لیست آرتیست‌ها -->
+  <div id="page-home" class="page active">
+    <div class="container">
+      <div class="week-days">
+        <span>MONDAY 01</span>
+        <span>TUESDAY 02</span>
+        <span>WEDNESDAY 03</span>
+        <span>THURSDAY 04</span>
+      </div>
+      <h1>LOST SOUND</h1>
+      <p class="subtitle">Scroll to discover amazing artists.</p>
+      <div class="artist-list">
+        <div class="artist-item" onclick="showArtist('AmirTalles')">
+          <div class="avatar"></div>
+          <div><h3>AmirTalles</h3><p>Music Producer</p></div>
+          <span class="arrow">→</span>
+        </div>
+        <div class="artist-item" onclick="showArtist('Nina Waves')">
+          <div class="avatar"></div>
+          <div><h3>Nina Waves</h3><p>Singer & DJ</p></div>
+          <span class="arrow">→</span>
+        </div>
+      </div>
+    </div>
+  </div>
 
-<div class="background"></div>
+  <!-- صفحه ۲: پروفایل آرتیست -->
+  <div id="page-artist" class="page">
+    <div class="container">
+      <button class="back-btn" onclick="goHome()">‹ Back</button>
+      <div class="profile-header">
+        <div class="profile-avatar"></div>
+        <div>
+          <h2 id="artist-name">AmirTalles</h2>
+          <p id="artist-role">Music Producer</p>
+          <button class="view-profile">VIEW PROFILE</button>
+        </div>
+      </div>
+      <h3 class="section-title">TOP TRACKS</h3>
+      <div class="track-list">
+        <div class="track-item"><span>Lost In The Echo</span><span>02:45</span></div>
+        <div class="track-item"><span>Dark Days</span><span>03:10</span></div>
+        <div class="track-item"><span>After Midnight</span><span>02:58</span></div>
+      </div>
+    </div>
+  </div>
 
+  <!-- صفحه ۳: آپلود -->
+  <div id="page-upload" class="page">
+    <div class="container">
+      <h1>UPLOAD TRACK</h1>
+      <form onsubmit="startUpload(event)">
+        <label>ADD COVER <input type="file" accept="image/*"></label>
+        <input type="text" placeholder="Enter track name" required>
+        <select><option>Select genre</option><option>Electronic</option></select>
+        <label>AUDIO FILE <input type="file" accept="audio/*" required></label>
+        <textarea placeholder="Write something about your track..."></textarea>
+        <button type="submit" class="upload-btn">UPLOAD TRACK</button>
+      </form>
+    </div>
+  </div>
 
-<header>
+  <!-- صفحه ۴: در حال آپلود (Progress) -->
+  <div id="page-progress" class="page">
+    <div class="container center">
+      <h1 class="uploading-title">UPLOADING</h1>
+      <div class="progress-number" id="progressPercent">0%</div>
+      <div class="progress-bar"><div id="progressFill" style="width:0%"></div></div>
+      <p>Uploading your track...<br>Please don't close the app.</p>
+      <button class="cancel-btn" onclick="goHome()">CANCEL</button>
+    </div>
+  </div>
 
-    <h3>
-        LOST SOUND
-    </h3>
-
-</header>
-
-
-
-<main>
-
-
-<section class="artist-list" id="artistList">
-
-</section>
-
-
-</main>
-
-
-
-<div class="profile-page" id="profilePage">
-
-
-<button id="close">
-×
-</button>
-
-
-<img id="profileImage">
-
-
-<h1 id="profileName">
-</h1>
-
-
-<p id="profileBio">
-</p>
-
-
-<button class="play">
-PLAY SOUND
-</button>
-
-
-</div>
-
-
-
-<script src="script.js"></script>
-
-
+  <script src="script.js"></script>
 </body>
-
 </html>

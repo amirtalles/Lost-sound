@@ -1,226 +1,607 @@
-(() => {
-  'use strict';
+/* =========================================================
+   LOST SOUND
+========================================================= */
 
-  /* ------------------------------------------------------------------ */
-  /* DATA                                                                */
-  /* ------------------------------------------------------------------ */
-  const ARTISTS = [
-    {
-      id: 'amir',
-      name: 'AmirTalles',
-      role: 'Music Producer',
-      photo: 'https://i.pravatar.cc/300?img=13',
-      tracks: [
-        { name: 'Lost In The Echo', time: '02:45' },
-        { name: 'Dark Days', time: '03:10' },
-        { name: 'After Midnight', time: '02:58' }
-      ]
-    },
-    {
-      id: 'kaiden',
-      name: 'Kaiden Rho',
-      role: 'Beatmaker',
-      photo: 'https://i.pravatar.cc/300?img=12',
-      tracks: [
-        { name: 'Static Bloom', time: '03:22' },
-        { name: 'Low Orbit', time: '02:39' },
-        { name: 'Nightcrawl', time: '04:01' }
-      ]
-    },
-    {
-      id: 'noel',
-      name: 'Noel Vance',
-      role: 'Vocalist',
-      photo: 'https://i.pravatar.cc/300?img=59',
-      tracks: [
-        { name: 'Glass House', time: '03:05' },
-        { name: 'Paper Moon', time: '02:51' },
-        { name: 'Slow Fade', time: '03:47' }
-      ]
-    },
-    {
-      id: 'wren',
-      name: 'Wren Oaks',
-      role: 'Songwriter',
-      photo: 'https://i.pravatar.cc/300?img=47',
-      tracks: [
-        { name: 'Desert Line', time: '03:18' },
-        { name: 'Amber Room', time: '02:44' },
-        { name: 'Halfway Home', time: '03:33' }
-      ]
-    },
-    {
-      id: 'silas',
-      name: 'Silas Crane',
-      role: 'Sound Designer',
-      photo: 'https://i.pravatar.cc/300?img=15',
-      tracks: [
-        { name: 'Signal Loss', time: '04:12' },
-        { name: 'Tape Hiss', time: '02:27' },
-        { name: 'Undertow', time: '03:56' }
-      ]
-    }
-  ];
+const ARTISTS = [
 
-  /* ------------------------------------------------------------------ */
-  /* ELEMENTS                                                            */
-  /* ------------------------------------------------------------------ */
-  const artistStack = document.getElementById('artistStack');
-  const screens = document.querySelectorAll('.screen');
-  const navItems = document.querySelectorAll('.bottomnav__item');
+  {
+    id:"amir",
+    name:"AmirTalles",
+    role:"Music Producer",
+    photo:"https://i.pravatar.cc/400?img=13",
+    tracks:[
+      ["Lost In The Echo","02:45"],
+      ["Dark Days","03:10"],
+      ["After Midnight","02:58"]
+    ]
+  },
 
-  const artistPhoto = document.getElementById('artistPhoto');
-  const artistName = document.getElementById('artistName');
-  const artistRole = document.getElementById('artistRole');
-  const trackList = document.getElementById('trackList');
+  {
+    id:"kaiden",
+    name:"Kaiden Rho",
+    role:"Beatmaker",
+    photo:"https://i.pravatar.cc/400?img=12",
+    tracks:[
+      ["Static Bloom","03:22"],
+      ["Low Orbit","02:39"],
+      ["Nightcrawl","04:01"]
+    ]
+  },
 
-  const uploadForm = document.getElementById('uploadForm');
-  const trackNameInput = document.getElementById('trackNameInput');
-  const audioFileInput = document.getElementById('audioFileInput');
-  const fileNameLabel = document.getElementById('fileName');
-  const fileFieldWrap = fileNameLabel.closest('.field__file');
+  {
+    id:"noel",
+    name:"Noel Vance",
+    role:"Vocalist",
+    photo:"https://i.pravatar.cc/400?img=47",
+    tracks:[
+      ["Glass House","03:05"],
+      ["Paper Moon","02:51"],
+      ["Slow Fade","03:47"]
+    ]
+  },
 
-  const ringFill = document.getElementById('ringFill');
-  const pctNum = document.getElementById('pctNum');
-  const uploadCaption = document.getElementById('uploadCaption');
-  const cancelUploadBtn = document.getElementById('cancelUpload');
+  {
+    id:"wren",
+    name:"Wren Oaks",
+    role:"Songwriter",
+    photo:"https://i.pravatar.cc/400?img=45",
+    tracks:[
+      ["Desert Line","03:18"],
+      ["Amber Room","02:44"],
+      ["Halfway Home","03:33"]
+    ]
+  },
 
-  const RING_CIRCUMFERENCE = 2 * Math.PI * 90; // r=90
+  {
+    id:"silas",
+    name:"Silas Crane",
+    role:"Sound Designer",
+    photo:"https://i.pravatar.cc/400?img=15",
+    tracks:[
+      ["Signal Loss","04:12"],
+      ["Tape Hiss","02:27"],
+      ["Undertow","03:56"]
+    ]
+  }
 
-  /* ------------------------------------------------------------------ */
-  /* BUILD ARTIST STACK + ENTRANCE ANIMATION                            */
-  /* ------------------------------------------------------------------ */
-  function buildArtistStack() {
-    ARTISTS.forEach((artist, i) => {
-      const row = document.createElement('button');
-      row.type = 'button';
-      row.className = 'artist-row';
-      row.dataset.artistId = artist.id;
-      row.style.zIndex = String(ARTISTS.length - i);
-      row.innerHTML = `
-        <span class="artist-row__photo-wrap">
-          <span class="artist-row__photo"><img src="${artist.photo}" alt="${artist.name}"></span>
-          <span class="artist-row__num">${String(i + 1).padStart(2, '0')}</span>
+];
+
+
+const artistList =
+  document.getElementById("artistList");
+
+
+/* =========================================================
+   BUILD ARTISTS
+========================================================= */
+
+function buildArtists(){
+
+  artistList.innerHTML = "";
+
+  ARTISTS.forEach((artist,index)=>{
+
+    const button =
+      document.createElement("button");
+
+    button.className = "artist";
+
+    button.dataset.id = artist.id;
+
+    button.innerHTML = `
+
+      <div class="artist-photo">
+
+        <img
+          src="${artist.photo}"
+          alt="${artist.name}"
+        >
+
+      </div>
+
+      <div class="artist-number">
+        ${String(index+1).padStart(2,"0")}
+      </div>
+
+      <div class="artist-name">
+        ${artist.name}
+      </div>
+
+      <div class="artist-role">
+        ${artist.role}
+      </div>
+
+    `;
+
+
+    button.addEventListener(
+      "click",
+      ()=>openArtist(artist.id)
+    );
+
+
+    artistList.appendChild(button);
+
+  });
+
+}
+
+
+/* =========================================================
+   ENTRANCE
+========================================================= */
+
+function playEntrance(){
+
+  const artists =
+    document.querySelectorAll(".artist");
+
+
+  artists.forEach((artist,index)=>{
+
+    setTimeout(()=>{
+
+      artist.classList.add("enter");
+
+    },300 + index * 150);
+
+  });
+
+}
+
+
+/* =========================================================
+   SCREEN
+========================================================= */
+
+const screens = {
+
+  home:
+    document.getElementById("homeScreen"),
+
+  artist:
+    document.getElementById("artistScreen"),
+
+  upload:
+    document.getElementById("uploadScreen"),
+
+  uploading:
+    document.getElementById("uploadingScreen"),
+
+  mysound:
+    document.getElementById("mysoundScreen"),
+
+  profile:
+    document.getElementById("profileScreen")
+
+};
+
+
+function showScreen(name){
+
+  Object.values(screens).forEach(screen=>{
+
+    screen.classList.remove("active");
+
+  });
+
+
+  screens[name].classList.add("active");
+
+
+  window.scrollTo({
+
+    top:0,
+
+    behavior:"instant"
+
+  });
+
+
+  document
+    .querySelectorAll(".nav-item")
+    .forEach(item=>{
+
+      item.classList.remove("active");
+
+    });
+
+}
+
+
+/* =========================================================
+   HOME
+========================================================= */
+
+function goHome(){
+
+  showScreen("home");
+
+}
+
+
+/* =========================================================
+   ARTIST
+========================================================= */
+
+function openArtist(id){
+
+  const artist =
+    ARTISTS.find(
+      item=>item.id === id
+    );
+
+
+  if(!artist)return;
+
+
+  const photo =
+    document.getElementById("artistPhoto");
+
+
+  const name =
+    document.getElementById("artistName");
+
+
+  const role =
+    document.getElementById("artistRole");
+
+
+  const trackList =
+    document.getElementById("trackList");
+
+
+  photo.src =
+    artist.photo;
+
+
+  photo.alt =
+    artist.name;
+
+
+  name.textContent =
+    artist.name;
+
+
+  role.textContent =
+    artist.role;
+
+
+  trackList.innerHTML = "";
+
+
+  artist.tracks.forEach(
+    (track,index)=>{
+
+      const item =
+        document.createElement("div");
+
+
+      item.className =
+        "track";
+
+
+      item.innerHTML = `
+
+        <img
+          src="${artist.photo}"
+          alt=""
+        >
+
+        <div class="track-info">
+
+          <strong>
+            ${track[0]}
+          </strong>
+
+          <span>
+            ${artist.name}
+          </span>
+
+        </div>
+
+        <span class="track-time">
+          ${track[1]}
         </span>
-        <span class="artist-row__meta">
-          <span class="artist-row__name">${artist.name}</span>
+
+        <span>
+          •••
         </span>
+
       `;
-      row.addEventListener('click', () => openArtist(artist.id));
-      artistStack.appendChild(row);
-    });
-  }
 
-  function playEntrance() {
-    const rows = artistStack.querySelectorAll('.artist-row');
-    const baseDelay = 300;   // first artist enters at 0.3s
-    const stagger = 140;     // each following artist follows sequentially
-    rows.forEach((row, i) => {
-      setTimeout(() => {
-        row.classList.add('is-in');
-      }, baseDelay + i * stagger);
-    });
-  }
 
-  /* ------------------------------------------------------------------ */
-  /* SCREEN NAVIGATION                                                   */
-  /* ------------------------------------------------------------------ */
-  function showScreen(name) {
-    screens.forEach(s => s.classList.toggle('is-active', s.dataset.screen === name));
-    navItems.forEach(n => n.classList.toggle('is-active', n.dataset.nav === name));
-    window.scrollTo({ top: 0, behavior: 'auto' });
-  }
+      trackList.appendChild(item);
 
-  function openArtist(id) {
-    const artist = ARTISTS.find(a => a.id === id);
-    if (!artist) return;
-    artistPhoto.src = artist.photo;
-    artistPhoto.alt = artist.name;
-    artistName.textContent = artist.name;
-    artistRole.textContent = artist.role;
-    trackList.innerHTML = artist.tracks.map(t => `
-      <li>
-        <span class="track-thumb"><img src="${artist.photo}" alt=""></span>
-        <span class="track-info">
-          <span class="track-info__name">${t.name}</span>
-        </span>
-        <span class="track-time">${t.time}</span>
-      </li>
-    `).join('');
-    showScreen('artist');
-  }
-
-  document.querySelectorAll('[data-nav]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const target = btn.dataset.nav === 'artist-profile' ? 'artist' : btn.dataset.nav;
-      showScreen(target);
-    });
-  });
-
-  document.querySelectorAll('[data-back]').forEach(btn => {
-    btn.addEventListener('click', () => showScreen(btn.dataset.back));
-  });
-
-  /* ------------------------------------------------------------------ */
-  /* UPLOAD FORM                                                         */
-  /* ------------------------------------------------------------------ */
-  audioFileInput.addEventListener('change', () => {
-    const file = audioFileInput.files[0];
-    if (file) {
-      fileNameLabel.textContent = file.name;
-      fileFieldWrap.classList.add('has-file');
-    } else {
-      fileNameLabel.textContent = 'Choose file';
-      fileFieldWrap.classList.remove('has-file');
     }
-  });
-  fileFieldWrap.addEventListener('click', () => audioFileInput.click());
+  );
 
-  uploadForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    showScreen('uploading');
-    runUploadSimulation();
-  });
 
-  let uploadTimer = null;
+  showScreen("artist");
 
-  function runUploadSimulation() {
-    clearInterval(uploadTimer);
-    let progress = 0;
-    ringFill.style.strokeDasharray = String(RING_CIRCUMFERENCE);
-    ringFill.style.strokeDashoffset = String(RING_CIRCUMFERENCE);
-    pctNum.textContent = '0';
-    uploadCaption.textContent = 'Uploading your track…';
 
-    uploadTimer = setInterval(() => {
-      progress += Math.random() * 9 + 3;
-      if (progress >= 100) {
-        progress = 100;
-        clearInterval(uploadTimer);
-        uploadCaption.textContent = 'Upload complete';
-        setTimeout(() => {
-          uploadForm.reset();
-          fileNameLabel.textContent = 'Choose file';
-          fileFieldWrap.classList.remove('has-file');
-          showScreen('mysound');
-        }, 700);
+  /* Morph-like zoom */
+
+  requestAnimationFrame(()=>{
+
+    const photoBox =
+      document.querySelector(
+        ".large-artist-photo"
+      );
+
+
+    photoBox.animate(
+
+      [
+
+        {
+          transform:"scale(.72)",
+          opacity:0
+        },
+
+        {
+          transform:"scale(1.08)",
+          opacity:1
+        },
+
+        {
+          transform:"scale(1)",
+          opacity:1
+        }
+
+      ],
+
+      {
+
+        duration:650,
+
+        easing:"cubic-bezier(.16,1.3,.3,1)"
+
       }
-      const offset = RING_CIRCUMFERENCE * (1 - progress / 100);
-      ringFill.style.strokeDashoffset = String(offset);
-      pctNum.textContent = String(Math.round(progress));
-    }, 220);
-  }
 
-  cancelUploadBtn.addEventListener('click', () => {
-    clearInterval(uploadTimer);
-    showScreen('upload');
+    );
+
   });
 
-  /* ------------------------------------------------------------------ */
-  /* INIT                                                                */
-  /* ------------------------------------------------------------------ */
-  buildArtistStack();
-  // Screen opens visually empty; artists rise from the bottom ~0.3s in.
-  window.addEventListener('DOMContentLoaded', playEntrance);
-  if (document.readyState !== 'loading') playEntrance();
-})();
+}
+
+
+/* =========================================================
+   PROFILE
+========================================================= */
+
+function openProfile(){
+
+  showScreen("profile");
+
+}
+
+
+/* =========================================================
+   UPLOAD
+========================================================= */
+
+function goUpload(){
+
+  showScreen("upload");
+
+}
+
+
+/* =========================================================
+   MY SOUND
+========================================================= */
+
+function goMySound(){
+
+  showScreen("mysound");
+
+}
+
+
+/* =========================================================
+   AUDIO FILE
+========================================================= */
+
+const audioFile =
+  document.getElementById("audioFile");
+
+
+if(audioFile){
+
+  audioFile.addEventListener(
+    "change",
+    ()=>{
+
+      const file =
+        audioFile.files[0];
+
+
+      if(file){
+
+        document.getElementById(
+          "audioName"
+        ).textContent =
+          file.name;
+
+      }
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   UPLOAD
+========================================================= */
+
+const uploadForm =
+  document.getElementById("uploadForm");
+
+
+let uploadInterval = null;
+
+
+uploadForm.addEventListener(
+  "submit",
+  event=>{
+
+    event.preventDefault();
+
+
+    showScreen("uploading");
+
+
+    startUpload();
+
+  }
+);
+
+
+function startUpload(){
+
+  let progress = 0;
+
+
+  const circle =
+    document.getElementById(
+      "progressCircle"
+    );
+
+
+  const number =
+    document.getElementById(
+      "progressNumber"
+    );
+
+
+  const circumference =
+    2 * Math.PI * 86;
+
+
+  circle.style.strokeDasharray =
+    circumference;
+
+
+  circle.style.strokeDashoffset =
+    circumference;
+
+
+  clearInterval(uploadInterval);
+
+
+  uploadInterval =
+    setInterval(()=>{
+
+      progress +=
+        Math.random() * 7 + 3;
+
+
+      if(progress >= 100){
+
+        progress = 100;
+
+        clearInterval(
+          uploadInterval
+        );
+
+      }
+
+
+      const offset =
+        circumference *
+        (1 - progress / 100);
+
+
+      circle.style.strokeDashoffset =
+        offset;
+
+
+      number.textContent =
+        Math.round(progress) + "%";
+
+
+    },180);
+
+}
+
+
+/* =========================================================
+   CANCEL
+========================================================= */
+
+function cancelUpload(){
+
+  clearInterval(
+    uploadInterval
+  );
+
+  showScreen("upload");
+
+}
+
+
+/* =========================================================
+   MENU
+========================================================= */
+
+function toggleMenu(){
+
+  const list =
+    document.querySelector(
+      ".artist-list"
+    );
+
+
+  list.animate(
+
+    [
+
+      {
+        transform:"translateX(0)"
+      },
+
+      {
+        transform:"translateX(-8px)"
+      },
+
+      {
+        transform:"translateX(8px)"
+      },
+
+      {
+        transform:"translateX(0)"
+      }
+
+    ],
+
+    {
+
+      duration:350
+
+    }
+
+  );
+
+}
+
+
+/* =========================================================
+   START
+========================================================= */
+
+buildArtists();
+
+
+window.addEventListener(
+  "load",
+  ()=>{
+
+    setTimeout(
+      playEntrance,
+      50
+    );
+
+  }
+);

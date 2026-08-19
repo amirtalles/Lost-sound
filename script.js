@@ -1,156 +1,32 @@
-const artists = [
-
-
-{
-name:"The Weeknd",
-bio:"Singer / Artist",
-
-image:
-"https://images.unsplash.com/photo-1524368535928-5b5e00ddc76b"
-
-},
-
-
-{
-name:"Travis Scott",
-bio:"Hip Hop Artist",
-
-image:
-"https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f"
-
-},
-
-
-{
-name:"Billie Eilish",
-bio:"Alternative Artist",
-
-image:
-"https://images.unsplash.com/photo-1516280440614-37939bbacd81"
-
-},
-
-
-{
-name:"Drake",
-bio:"Rapper",
-
-image:
-"https://images.unsplash.com/photo-1524368535928-5b5e00ddc76b"
-
-},
-
-
-{
-name:"Lost Artist",
-bio:"New Creator",
-
-image:
-"https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f"
-
+// تغییر بین صفحات
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
 }
 
+function goHome() { showPage('page-home'); }
+function showArtist(name) {
+  document.getElementById('artist-name').textContent = name;
+  showPage('page-artist');
+}
 
-];
+// شبیه‌سازی آپلود با درصد
+function startUpload(e) {
+  e.preventDefault();
+  showPage('page-progress');
+  let progress = 0;
+  const fill = document.getElementById('progressFill');
+  const text = document.getElementById('progressPercent');
 
+  const interval = setInterval(() => {
+    progress += Math.floor(Math.random() * 5) + 1; // بین ۱ تا ۵ افزایش
+    if (progress > 100) progress = 100;
+    fill.style.width = progress + '%';
+    text.textContent = progress + '%';
 
-
-
-
-const list =
-document.getElementById("artistList");
-
-
-
-artists.forEach((artist,index)=>{
-
-
-let card =
-document.createElement("div");
-
-
-card.className="artist";
-
-
-
-card.innerHTML=`
-
-<div class="photo"
-
-style="background-image:url(${artist.image})">
-
-</div>
-
-
-<div class="number">
-
-0${index+1}
-
-</div>
-
-
-<div class="name">
-
-${artist.name}
-
-</div>
-
-
-`;
-
-
-
-card.onclick=()=>{
-
-
-document
-.getElementById("profileImage")
-.src=
-artist.image;
-
-
-
-document
-.getElementById("profileName")
-.innerHTML=
-artist.name;
-
-
-
-document
-.getElementById("profileBio")
-.innerHTML=
-artist.bio;
-
-
-
-document
-.getElementById("profilePage")
-.classList.add("active");
-
-
-
-};
-
-
-
-list.appendChild(card);
-
-
-});
-
-
-
-
-
-document
-.getElementById("close")
-.onclick=()=>{
-
-
-document
-.getElementById("profilePage")
-.classList.remove("active");
-
-
-};
+    if (progress >= 100) {
+      clearInterval(interval);
+      setTimeout(() => alert('آپلود با موفقیت انجام شد! 🎵'), 300);
+    }
+  }, 150);
+}
